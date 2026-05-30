@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Data (CIFAR-10 auto-download)
+data/*
+!data/.gitkeep
+
+# Training outputs
+runs/*
+!runs/.gitkeep
+*.pth
+*.pt
+*.ckpt
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

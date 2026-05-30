@@ -4,7 +4,28 @@ import os
 import torch
 import matplotlib.pyplot as plt
 import matplotlib
-matplotlib.rcParams['font.family'] = 'DejaVu Sans'
+import matplotlib.font_manager as fm
+
+
+def _set_korean_font():
+    """설치된 한글 폰트를 자동 탐지해 적용 (없으면 기본 폰트 유지).
+
+    Windows=맑은 고딕, macOS=애플고딕, Colab/Linux=나눔고딕·Noto 순으로 탐색.
+    Colab에서는 먼저 `!apt-get install -y fonts-nanum` 로 폰트를 설치하세요.
+    """
+    candidates = ['Malgun Gothic', 'AppleGothic', 'NanumGothic',
+                  'NanumBarunGothic', 'Noto Sans CJK KR', 'Noto Sans KR']
+    available = {f.name for f in fm.fontManager.ttflist}
+    for name in candidates:
+        if name in available:
+            matplotlib.rcParams['font.family'] = name
+            break
+    else:
+        print('[viz] 한글 폰트를 못 찾았어요. 제목이 □로 보이면 한글 폰트를 설치하세요.')
+    matplotlib.rcParams['axes.unicode_minus'] = False   # 마이너스 기호 깨짐 방지
+
+
+_set_korean_font()
 
 import config
 from .data import denormalize
